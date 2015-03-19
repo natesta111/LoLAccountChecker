@@ -85,7 +85,7 @@ namespace LoLAccountChecker.Views
 
         private void BtnDonateClick(object sender, RoutedEventArgs e)
         {
-            Process.Start("https://www.paypal.com/cgi-bin/webscr?cmd=_s-xclick&hosted_button_id=CHEV6LWPMHUMW");
+            //Process.Start("https://www.paypal.com/cgi-bin/webscr?cmd=_s-xclick&hosted_button_id=CHEV6LWPMHUMW");
         }
 
         private async void BtnRefreshClick(object sender, RoutedEventArgs e)
@@ -101,10 +101,10 @@ namespace LoLAccountChecker.Views
                 return;
             }
 
-            if (AccountsWindow.Instance == null)
+            if (_accountsDataGrid.SelectedItems.Count == 0)
             {
-                AccountsWindow.Instance = new AccountsWindow();
-                AccountsWindow.Instance.Closed += (o, a) => { AccountsWindow.Instance = null; };
+                await this.ShowMessageAsync("Error", "Please select the account(s) that you would like to refresh.");
+                return;
             }
 
             foreach (Account a in _accountsDataGrid.SelectedItems)
