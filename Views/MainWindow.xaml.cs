@@ -112,7 +112,11 @@ namespace LoLAccountChecker.Views
                 a.State = Account.Result.Outdated;
             }
 
-            AccountsWindow.Instance.RefreshAccounts();
+            if (AccountsWindow.Instance != null) 
+            {
+                AccountsWindow.Instance.RefreshAccounts();
+            }
+
             UpdateControls();
 
             _startButton.Content = "Stop";
