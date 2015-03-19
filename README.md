@@ -18,9 +18,9 @@ You can also import and export checked accounts that you want to see later.
 * IP
 * Champions
 * Skins
-* Rune Pages
+* Runes
 * Email Status
-* SoloQ Rank
+* Solo Queue Rank
 * Date of Last Match Played
 
 ### Requirements:
