@@ -38,7 +38,6 @@ namespace LoLAccountChecker
             
             if (!Accounts.Any(a => a.State == Account.Result.Outdated))
             {
-                dialogMessage = "All the accounts have been checked!";
                 while (Accounts.Any(a => a.State == Account.Result.Unchecked))
                 {
                     if (!IsChecking)
@@ -67,10 +66,15 @@ namespace LoLAccountChecker
                         AccountsWindow.Instance.RefreshAccounts();
                     }
                 }
+                dialogMessage = Accounts.Count(a => a.State == Account.Result.Success) > 1 ?
+                    string.Format("{0} accounts have been successfully checked!", Accounts.Count(a => a.State == Account.Result.Success)) :
+                    "1 account has been successfully checked!";
             }
             else
             {
-                dialogMessage = string.Format("{0} accounts have been refreshed!", Accounts.Count(a => a.State == Account.Result.Outdated).ToString()); 
+                dialogMessage = Accounts.Count(a => a.State == Account.Result.Outdated) > 1 ? 
+                    string.Format("{0} accounts have been refreshed!", Accounts.Count(a => a.State == Account.Result.Outdated).ToString()) : 
+                    "1 account has been refreshed!"; 
                 while (Accounts.Any(a => a.State == Account.Result.Outdated))
                 {
                     if (!IsChecking)

@@ -71,11 +71,7 @@ namespace LoLAccountChecker.Views
             _startButton.Content = Checker.IsChecking ? "Stop" : "Start";
 
             // Status Label
-            if (Checker.IsChecking)
-            {
-                _statusLabel.Content = "Status: Checking...";
-            }
-            else if (numCheckedAcccounts > 0 && Checker.Accounts.All(a => a.State != Account.Result.Unchecked))
+            if (numCheckedAcccounts > 0 && (Checker.Accounts.All(a => a.State != Account.Result.Unchecked) && Checker.Accounts.All(a => a.State != Account.Result.Outdated)))
             {
                 _statusLabel.Content = "Status: Finished!";
             }
@@ -94,9 +90,14 @@ namespace LoLAccountChecker.Views
 
         private async void BtnRefreshClick(object sender, RoutedEventArgs e)
         {
-            if (Checker.IsChecking)
+            if (Checker.IsChecking && _statusLabel.Content.ToString() == "Status: Checking...")
             {
-                await this.ShowMessageAsync("Error", "Please wait for the checking process to be completed.");
+                await this.ShowMessageAsync("Error", "Please wait for the checking process to be completed!");
+                return;
+            }
+            else if (Checker.IsChecking && _statusLabel.Content.ToString() == "Status: Refreshing...")
+            {
+                await this.ShowMessageAsync("Error", "Please wait for the refreshing process to be completed!");
                 return;
             }
 
